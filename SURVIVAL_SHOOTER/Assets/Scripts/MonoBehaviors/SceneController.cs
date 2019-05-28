@@ -24,12 +24,12 @@ public class SceneController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha9))
         {
             m_ScreenFader.FadeIn();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             m_ScreenFader.FadeOut();
         }
