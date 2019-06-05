@@ -13,16 +13,21 @@ public class PlayingState : IState
 
 	public void Enter()
 	{
-		throw new System.NotImplementedException();
+		//throw new System.NotImplementedException();
 	}
 
 	public void Execute()
 	{
-		//throw new System.NotImplementedException();
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Debug.Log("PAUSE");
+
+			StateController.Instance.StateMachine.ChangeState(StateController.paused);
+		}
 	}
 
 	public void Exit()
 	{
-		throw new System.NotImplementedException();
+		//throw new System.NotImplementedException();
 	}
 }

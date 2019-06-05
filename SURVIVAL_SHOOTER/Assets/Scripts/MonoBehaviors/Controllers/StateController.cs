@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class StateController : Singleton<StateController>
 {
-	private StateMachine stateMachine;
+	public StateMachine StateMachine;
 
-	private PlayingState playing;
+	public static PlayingState playing;
+	public static PausedState paused;
 
 	private void Awake()
 	{
 		Debug.Log("Awake");
 
-		stateMachine = new StateMachine();
+		StateMachine = new StateMachine();
 
-		playing = new PlayingState();		
+		playing = new PlayingState();
+		paused = new PausedState();
 	}
 
 	private void Start()
 	{
 		Debug.Log("Start");
 
-		stateMachine.ChangeState(playing);
+		StateMachine.ChangeState(playing);
 	}
 
 	protected void Update()
 	{
 		Debug.Log("Update");
 
-		stateMachine.RunState();		
+		StateMachine.RunState();		
 	}
 }

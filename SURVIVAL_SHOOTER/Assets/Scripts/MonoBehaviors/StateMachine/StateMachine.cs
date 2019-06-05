@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class StateMachine //: Singleton<StateMachine>
 {
+	public event Action<string> OnStateChange;
+
 	[SerializeField]
 	private IState m_CurrentState;
 	[SerializeField]
@@ -29,6 +33,8 @@ public class StateMachine //: Singleton<StateMachine>
 		m_CurrentState = state;
 
 		m_CurrentState.Enter();
+
+		OnStateChange?.Invoke(state.ToString());
 	}
 
 	public void RunState()
