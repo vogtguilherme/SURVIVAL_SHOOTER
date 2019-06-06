@@ -34,7 +34,9 @@ public class StateMachine //: Singleton<StateMachine>
 
 		m_CurrentState.Enter();
 
-		OnStateChange?.Invoke(state.ToString());
+		string stateName = state.ToString().ToUpper();
+
+		OnStateChange?.Invoke(stateName);
 	}
 
 	public void RunState()
