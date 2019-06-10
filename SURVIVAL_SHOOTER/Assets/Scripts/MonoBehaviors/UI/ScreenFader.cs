@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ScreenFader : MonoBehaviour
 {
@@ -54,6 +53,9 @@ public class ScreenFader : MonoBehaviour
     private IEnumerator StartFade(Color from, Color to, float duration)
     {       
         isFading = true;
+
+		if (!m_FadeImage.IsActive())
+			m_FadeImage.enabled = true;
 
         float startTime = 0f;
 

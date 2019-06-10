@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayingState : IState
+public class PlayingState : State
 {
 	public string Name { get; set;}
 
@@ -11,12 +11,12 @@ public class PlayingState : IState
 		Name = "Playing";
 	}
 
-	public void Enter()
+	public override void Enter()
 	{
 		//throw new System.NotImplementedException();
 	}
 
-	public void Execute()
+	public override void Execute()
 	{
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -26,7 +26,7 @@ public class PlayingState : IState
 		}
 	}
 
-	public void Exit()
+	public override void Exit()
 	{
 		//throw new System.NotImplementedException();
 	}

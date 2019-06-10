@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class StateMachine //: Singleton<StateMachine>
+[Serializable]
+public class StateMachine
 {
 	public event Action<string> OnStateChange;
 
 	[SerializeField]
-	private IState m_CurrentState;
+	private State m_CurrentState;
 	[SerializeField]
-	private IState m_PreviousState;
+	private State m_PreviousState;
 
-	public IState CurrentState
+	public State CurrentState
 	{
 		get
 		{
@@ -23,7 +24,7 @@ public class StateMachine //: Singleton<StateMachine>
 		}
 	}
 
-	public void ChangeState(IState state)
+	public void ChangeState(State state)
 	{
 		if(m_CurrentState != null)
 			m_CurrentState.Exit();

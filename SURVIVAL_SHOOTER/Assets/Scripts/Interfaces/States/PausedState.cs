@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class PausedState : IState
+public class PausedState : State
 {
-	public PausedState(){ }
+	public event Action OnPause;
+	public event Action OnUnpause;
 
 
-	public void Enter()
+	public override void Enter()
 	{
-		
+		OnPause?.Invoke();
 	}
 
-	public void Execute()
+	public override void Execute()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -20,8 +22,8 @@ public class PausedState : IState
 		}
 	}
 
-	public void Exit()
+	public override void Exit()
 	{
-		
+		OnUnpause?.Invoke();
 	}
 }
