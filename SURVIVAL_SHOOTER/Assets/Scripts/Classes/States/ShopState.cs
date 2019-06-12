@@ -4,20 +4,43 @@ using UnityEngine;
 
 public class ShopState : State
 {
-	public override void Enter()
-	{
-		throw new System.NotImplementedException();
-	}
+    public string Name { get; set; }
 
-	public override void Execute()
+    public ShopState()
+    {
+        Name = "Shop";
+    }
+
+    public override void Enter()
 	{
-		throw new System.NotImplementedException();
+        if (ShopInstance.instance)
+        {
+            ShopInstance.instance.shopGUI.Open();
+        }
+    }
+
+    public override void Execute()
+	{
+		if(ShopInstance.instance)
+        {
+            ShopInstance.instance.onStartGameClicked += ChangeToPlayingState;
+        }
 	}
 
 	public override void Exit()
 	{
-		throw new System.NotImplementedException();
-	}
+        if (ShopInstance.instance)
+        {
+            ShopInstance.instance.onStartGameClicked -= ChangeToPlayingState;
+        }
+    }
+
+    void ChangeToPlayingState()
+    {
+        Debug.Log("PLAYING");
+
+        StateController.Instance.StateMachine.ChangeState(StateController.playing);
+    }
 }
  
 

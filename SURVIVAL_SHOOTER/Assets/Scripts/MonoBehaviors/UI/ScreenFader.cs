@@ -7,11 +7,10 @@ public class ScreenFader : MonoBehaviour
 {
     public event Action OnFadeCompleted;
 
-    [SerializeField] private Image m_FadeImage;
-    [SerializeField] private Color m_FadeColor;
+    [SerializeField] private CanvasGroup m_FadeImage;
+    [SerializeField] private float m_Actived, m_Desactived;
     [SerializeField] private float m_FadeDuration;    
 
-    private Color m_FadedOutColor;
     private bool isFading = false;
 
     public bool IsFading
@@ -21,7 +20,7 @@ public class ScreenFader : MonoBehaviour
 
     private void Awake()
     {
-        m_FadedOutColor = new Color(m_FadeColor.r, m_FadeColor.g, m_FadeColor.b, 0);
+
     }    
 
     public void FadeIn()
@@ -42,31 +41,36 @@ public class ScreenFader : MonoBehaviour
 
     private IEnumerator StartFadeIn()
     {
-        yield return StartFade(m_FadeColor, m_FadedOutColor, m_FadeDuration);
+        yield return StartFade(m_Desactived, m_FadeDuration);
     }
 
     private IEnumerator StartFadeOut()
     {
-        yield return StartFade(m_FadedOutColor, m_FadeColor, m_FadeDuration);
+        yield return StartFade(m_Actived, m_FadeDuration);
     }
 
-    private IEnumerator StartFade(Color from, Color to, float duration)
+    private IEnumerator StartFade(float to, float duration)
     {       
         isFading = true;
 
-		if (!m_FadeImage.IsActive())
-			m_FadeImage.enabled = true;
+        m_FadeImage.blocksRaycasts = true;
+        m_FadeImage.interactable = true;
+
+        float initialAlpha = m_FadeImage.alpha;
 
         float startTime = 0f;
 
         while (startTime <= duration)
         {
-            m_FadeImage.color = Color.Lerp(from, to, startTime / duration);
+            m_FadeImage.alpha = Mathf.Lerp(initialAlpha, to, startTime / duration);
 
             startTime += Time.deltaTime;
 
             yield return null;
         }
+
+        m_FadeImage.blocksRaycasts = to == m_Actived;
+        m_FadeImage.interactable = to == m_Actived;
 
         isFading = false;
 

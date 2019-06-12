@@ -8,6 +8,7 @@ public class StateController : Singleton<StateController>
 
 	public static PlayingState playing;
 	public static PausedState paused;
+    public static ShopState shop;
 
 	private void Awake()
 	{
@@ -17,13 +18,14 @@ public class StateController : Singleton<StateController>
 
 		playing = new PlayingState();
 		paused = new PausedState();
+        shop = new ShopState();
 	}
 
 	private void Start()
 	{
 		Debug.Log("Start");
 
-		StateMachine.ChangeState(playing);
+		StateMachine.ChangeState(shop);
 	}
 
 	protected void Update()
