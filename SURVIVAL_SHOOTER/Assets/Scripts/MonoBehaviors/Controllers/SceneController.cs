@@ -79,6 +79,8 @@ public class SceneController : MonoBehaviour
 
         OnSceneLoaded?.Invoke();
 
+        StateController.Instance.StateMachine.ChangeState(StateController.shop);
+
         m_ScreenFader.FadeIn();
 
         while (m_ScreenFader.IsFading)
