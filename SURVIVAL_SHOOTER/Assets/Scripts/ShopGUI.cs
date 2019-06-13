@@ -5,18 +5,15 @@ using UnityEngine.UI;
 
 public class ShopGUI : MonoBehaviour
 {
-    public static ShopGUI instance;
+    public CanvasGroup panelShop;
 
     public Text moneyText;
 
     public Transform contentItems;
 
-    ItemGUI _currentItem;
+    public float closeShopDuration = 0.5f;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    ItemGUI _currentItem;
 
     private void Start()
     {
@@ -30,22 +27,51 @@ public class ShopGUI : MonoBehaviour
             contentItems.GetChild(i).gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < PlayerManager.instance.PlayerItems.Count; i++)
+        for (int i = 0; i < ShopInstance.instance.playerShopManager.PlayerItems.Count; i++)
         {
             _currentItem = contentItems.GetChild(i).GetComponent<ItemGUI>();
             _currentItem.gameObject.SetActive(true);
 
             _currentItem.SetItem(p_id: i,
-                                    p_name: PlayerManager.instance.PlayerItems[i].itemName,
-                                    p_description: PlayerManager.instance.PlayerItems[i].description,
-                                    p_cost: PlayerManager.instance.PlayerItems[i].cost,
-                                    p_bought: PlayerManager.instance.PlayerItems[i].bought,
-                                    p_image: PlayerManager.instance.PlayerItems[i].image);
+                                    p_name: ShopInstance.instance.playerShopManager.PlayerItems[i].itemName,
+                                    p_description: ShopInstance.instance.playerShopManager.PlayerItems[i].description,
+                                    p_cost: ShopInstance.instance.playerShopManager.PlayerItems[i].cost,
+                                    p_bought: ShopInstance.instance.playerShopManager.PlayerItems[i].bought,
+                                    p_image: ShopInstance.instance.playerShopManager.PlayerItems[i].image);
         }
     }
 
     void Update()
     {
-        moneyText.text = "$" + PlayerManager.instance.Money;
+        moneyText.text = "$" + ShopInstance.instance.playerShopManager.Money;
+    }
+
+    public void Open()
+    {
+        panelShop.blocksRaycasts = true;
+        panelShop.interactable = true;
+        panelShop.alpha = 1f;
+    }
+
+    public void Close()
+    {
+        StartCoroutine("CloseShop");
+    }
+
+    private IEnumerator CloseShop()
+    {
+        panelShop.blocksRaycasts = false;
+        panelShop.interactable = false;
+
+        float startTime = 0f;
+
+        while (startTime <= closeShopDuration)
+        {
+            panelShop.alpha = Mathf.Lerp(1f, 0f, startTime / closeShopDuration);
+
+            startTime += Time.deltaTime;
+
+            yield return null;
+        }
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class itemPlayer
+[System.Serializable]
+public class ItemPlayer
 {
     public string itemName;
     public string description;
@@ -10,7 +11,7 @@ public class itemPlayer
     public bool bought;
     public Sprite image;
 
-    public itemPlayer(Item p_item)
+    public ItemPlayer(Item p_item)
     {
         itemName = p_item.itemName;
         description = p_item.description;
@@ -20,35 +21,30 @@ public class itemPlayer
     }
 }
 
-public class PlayerManager : MonoBehaviour
+public class PlayerShopManager : MonoBehaviour
 {
-    public static PlayerManager instance;
-
     [SerializeField]
     int money = 100;
     public int Money { get { return money; } }
 
     public List<Item> itemsResources = new List<Item>();
 
-    List<itemPlayer> playerItems = new List<itemPlayer>();
-    public List<itemPlayer> PlayerItems { get { return playerItems; } }
+    List<ItemPlayer> playerItems = new List<ItemPlayer>();
+    public List<ItemPlayer> PlayerItems { get { return playerItems; } }
 
     private void Awake()
     {
-        instance = this;
-
         for(int i = 0; i < itemsResources.Count; i++)
         {
-            playerItems.Add(new itemPlayer(itemsResources[i]));
+            playerItems.Add(new ItemPlayer(itemsResources[i]));
         }
     }
-
 
     public void BuyItem(int p_id)
     {
         money -= playerItems[p_id].cost;
         playerItems[p_id].bought = true;
 
-        ShopGUI.instance.FillShop();
+        ShopInstance.instance.shopGUI.FillShop();
     }
 }
