@@ -33,7 +33,7 @@ public abstract class PowerUp : MonoBehaviour
 
 	public virtual void OnTriggerEnter(Collider other)
 	{
-		var player = Player.s_Instance.gameObject;
+		var player = Player.Instance.gameObject;
 
 		if (other.gameObject == player)
 		{
