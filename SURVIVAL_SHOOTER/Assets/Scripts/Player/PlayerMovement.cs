@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody> ();		
 	}
 
-	void FixedUpdate()
+	/*void FixedUpdate()
 	{
 		float x = Input.GetAxis ("Horizontal");
 		float y = Input.GetAxis ("Vertical");
@@ -37,6 +37,16 @@ public class PlayerMovement : MonoBehaviour
 		Move (x, y);
 
         Turning();
+	}*/
+
+	public void UpdateMovement()
+	{
+		float x = Input.GetAxis("Horizontal");
+		float y = Input.GetAxis("Vertical");
+
+		Move(x, y);
+
+		Turning();
 	}
 
 	void Update()

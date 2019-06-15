@@ -16,7 +16,7 @@ public class AmmoItem : PowerUp
 	{
 		gameObject.SetActive(false);
 
-		Player.s_Instance.PerformPowerUp(this.Gettype(), this.Amount);
+		Player.Instance.PerformPowerUp(this.Gettype(), this.Amount);
 	}
 }
 

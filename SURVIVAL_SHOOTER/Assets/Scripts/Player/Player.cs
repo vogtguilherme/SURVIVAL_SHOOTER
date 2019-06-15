@@ -6,14 +6,14 @@ public class Player : Entity, ICollectable
 {
 	#region Private Variables
 
-	private PlayerMovement m_PlayerMovement;
-    private PlayerShooting m_PlayerShooting;	
+	public PlayerMovement m_PlayerMovement { get; private set; }
+    public PlayerShooting m_PlayerShooting { get; private set; }
 
-    #endregion
+	#endregion
 
-    #region Public Variables
+	#region Public Variables
 
-    public static Player s_Instance;
+	public static Player Instance;
 
 	public event System.Action OnVariableChanged;
 	public event System.Action OnPlayerDead;
@@ -31,8 +31,8 @@ public class Player : Entity, ICollectable
 
 	void Awake()
     {
-        if (s_Instance == null)
-            s_Instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
 

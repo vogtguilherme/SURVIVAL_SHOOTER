@@ -18,7 +18,14 @@ public class PlayingState : State
 
 	public override void Execute()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
+		//COMPORTAMENTO DO ESTADO
+
+		Player.Instance.m_PlayerMovement.UpdateMovement();
+		
+		
+		//CONDIÇÕES PARA TROCA DE ESTADOS
+
+		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Debug.Log("PAUSE");
 

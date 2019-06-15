@@ -59,7 +59,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-		Player player = Player.s_Instance;
+		Player player = Player.Instance;
 
 		if (player.m_Weapon.CurrentAmmo <= 0)
 		{
