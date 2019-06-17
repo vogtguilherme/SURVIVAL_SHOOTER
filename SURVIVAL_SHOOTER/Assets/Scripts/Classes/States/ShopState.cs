@@ -13,27 +13,27 @@ public class ShopState : State
 
     public override void Enter()
 	{
-        if (ShopInstance.instance)
+		if (ShopInstance.Instance)
         {
-            ShopInstance.instance.shopGUI.Open();
+            ShopInstance.Instance.shopGUI.Open();
         }
     }
 
     public override void Execute()
 	{
-		if(ShopInstance.instance)
+		if(ShopInstance.Instance)
         {
-            ShopInstance.instance.onStartGameClicked += ChangeToPlayingState;
+            ShopInstance.Instance.onStartGameClicked += ChangeToPlayingState;
         }
 	}
 
 	public override void Exit()
 	{
-        if (ShopInstance.instance)
+        if (ShopInstance.Instance)
         {
-            ShopInstance.instance.onStartGameClicked -= ChangeToPlayingState;
+            ShopInstance.Instance.onStartGameClicked -= ChangeToPlayingState;
         }
-    }
+	}
 
     void ChangeToPlayingState()
     {

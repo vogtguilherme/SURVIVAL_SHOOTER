@@ -33,7 +33,10 @@ public class InterfaceManager : MonoBehaviour
 
 	private void OnDisable()
 	{
-		StateController.Instance.StateMachine.OnStateChange -= UpdateText;
+		if(StateController.Instance != null)
+		{
+			StateController.Instance.StateMachine.OnStateChange -= UpdateText;
+		}
 
 		StateController.paused.OnPause -= ActivateScreenTint;
 		StateController.paused.OnUnpause -= DeactivateScreenTint;

@@ -45,6 +45,6 @@ public class PlayerShopManager : MonoBehaviour
         money -= playerItems[p_id].cost;
         playerItems[p_id].bought = true;
 
-        ShopInstance.instance.shopGUI.FillShop();
+        ShopInstance.Instance.shopGUI.FillShop();
     }
 }

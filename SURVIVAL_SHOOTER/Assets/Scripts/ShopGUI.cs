@@ -27,28 +27,28 @@ public class ShopGUI : MonoBehaviour
             contentItems.GetChild(i).gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < ShopInstance.instance.playerShopManager.PlayerItems.Count; i++)
+        for (int i = 0; i < ShopInstance.Instance.playerShopManager.PlayerItems.Count; i++)
         {
             _currentItem = contentItems.GetChild(i).GetComponent<ItemGUI>();
             _currentItem.gameObject.SetActive(true);
 
             _currentItem.SetItem(p_id: i,
-                                    p_name: ShopInstance.instance.playerShopManager.PlayerItems[i].itemName,
-                                    p_description: ShopInstance.instance.playerShopManager.PlayerItems[i].description,
-                                    p_cost: ShopInstance.instance.playerShopManager.PlayerItems[i].cost,
-                                    p_bought: ShopInstance.instance.playerShopManager.PlayerItems[i].bought,
-                                    p_image: ShopInstance.instance.playerShopManager.PlayerItems[i].image);
+                                    p_name: ShopInstance.Instance.playerShopManager.PlayerItems[i].itemName,
+                                    p_description: ShopInstance.Instance.playerShopManager.PlayerItems[i].description,
+                                    p_cost: ShopInstance.Instance.playerShopManager.PlayerItems[i].cost,
+                                    p_bought: ShopInstance.Instance.playerShopManager.PlayerItems[i].bought,
+                                    p_image: ShopInstance.Instance.playerShopManager.PlayerItems[i].image);
         }
     }
 
     void Update()
     {
-        moneyText.text = "$" + ShopInstance.instance.playerShopManager.Money;
+        moneyText.text = "$" + ShopInstance.Instance.playerShopManager.Money;
     }
 
     public void Open()
     {
-        panelShop.blocksRaycasts = true;
+		panelShop.blocksRaycasts = true;
         panelShop.interactable = true;
         panelShop.alpha = 1f;
     }
@@ -73,5 +73,7 @@ public class ShopGUI : MonoBehaviour
 
             yield return null;
         }
+
+		panelShop.alpha = 0f;		
     }
 }

@@ -12,55 +12,37 @@ public class SceneController : MonoBehaviour
 
     [SerializeField]private bool FadeOnSceneLoad;
 
-    public string sceneToLoad;
+	public GameObject UICamera, MainCamera;
+
+	public int sceneToLoadIndex;
 
     private ScreenFader m_ScreenFader;    
 
     private void Awake()
     {
         m_ScreenFader = GetComponent<ScreenFader>();
+
+		if (UICamera == null)
+			GameObject.FindGameObjectWithTag("InterfaceCamera");
     }    
 
     private IEnumerator Start()
     {
-        yield return StartCoroutine(LoadSceneAndSetActive(sceneToLoad));
+        yield return StartCoroutine(LoadSceneAndSetActive(sceneToLoadIndex));
 
         if (FadeOnSceneLoad)
             m_ScreenFader.FadeIn();
     }
 
-    public void FadeAndLoadScene(string sceneName)
+    public void FadeAndLoadScene(int sceneIndex)
     {
         if(!m_ScreenFader.IsFading)
         {
-            StartCoroutine(FadeAndSwitchScenes(sceneName));
+            StartCoroutine(FadeAndSwitchScenes(sceneIndex));
         }
-    }
+    }    
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            m_ScreenFader.FadeIn();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            m_ScreenFader.FadeOut();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            FadeAndLoadScene("Stage01");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            FadeAndLoadScene("Stage02");
-        }
-    }
-
-    private IEnumerator FadeAndSwitchScenes(string sceneName)
+    private IEnumerator FadeAndSwitchScenes(int sceneIndex)
     {
         m_ScreenFader.FadeOut();
 
@@ -71,15 +53,20 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
+		if(MainCamera != null)
+			MainCamera.SetActive(false);
+
+		UICamera.SetActive(true);
+
         OnSceneUnload?.Invoke();
 
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
-        yield return StartCoroutine(LoadSceneAndSetActive(sceneName));
+        yield return StartCoroutine(LoadSceneAndSetActive(sceneIndex));
 
         OnSceneLoaded?.Invoke();
 
-        StateController.Instance.StateMachine.ChangeState(StateController.shop);
+        //StateController.Instance.StateMachine.ChangeState(StateController.shop);
 
         m_ScreenFader.FadeIn();
 
@@ -89,14 +76,22 @@ public class SceneController : MonoBehaviour
 
             yield return null;
         }
-    }
 
-    private IEnumerator LoadSceneAndSetActive(string sceneName)
+		UICamera.SetActive(false);
+		MainCamera.SetActive(true);
+	}
+
+    private IEnumerator LoadSceneAndSetActive(int sceneIndex)
     {
-        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
 
         Scene newLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
 
         SceneManager.SetActiveScene(newLoadedScene);
-    }
+
+		MainCamera = Camera.main.gameObject;
+
+		UICamera.SetActive(false);
+		//MainCamera = GameObject.Find("MainCamera");
+	}
 }

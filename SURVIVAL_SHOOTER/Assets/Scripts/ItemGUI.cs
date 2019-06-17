@@ -31,9 +31,9 @@ public class ItemGUI : MonoBehaviour
         }
         else
         {
-            buttonBuyText.text = ShopInstance.instance.playerShopManager.Money >= p_cost ? "Buy" : "No enough money";
+            buttonBuyText.text = ShopInstance.Instance.playerShopManager.Money >= p_cost ? "Buy" : "No enough money";
 
-            buttonBuy.interactable = ShopInstance.instance.playerShopManager.Money >= p_cost ? true : false;
+            buttonBuy.interactable = ShopInstance.Instance.playerShopManager.Money >= p_cost ? true : false;
         }
     }
 
@@ -41,14 +41,14 @@ public class ItemGUI : MonoBehaviour
     {
         if(gameObject.activeInHierarchy)
         {
-            if (!ShopInstance.instance.playerShopManager.PlayerItems[id].bought)
+            if (!ShopInstance.Instance.playerShopManager.PlayerItems[id].bought)
             {
-                if (buttonBuy.interactable && ShopInstance.instance.playerShopManager.Money < ShopInstance.instance.playerShopManager.PlayerItems[id].cost)
+                if (buttonBuy.interactable && ShopInstance.Instance.playerShopManager.Money < ShopInstance.Instance.playerShopManager.PlayerItems[id].cost)
                 {
                     buttonBuy.interactable = false;
                     buttonBuyText.text = "No enough money";
                 }
-                else if(!buttonBuy.interactable && ShopInstance.instance.playerShopManager.Money >= ShopInstance.instance.playerShopManager.PlayerItems[id].cost)
+                else if(!buttonBuy.interactable && ShopInstance.Instance.playerShopManager.Money >= ShopInstance.Instance.playerShopManager.PlayerItems[id].cost)
                 {
                     buttonBuy.interactable = true;
                     buttonBuyText.text = "Buy";
@@ -59,6 +59,6 @@ public class ItemGUI : MonoBehaviour
 
     public void BuyItem()
     {
-        ShopInstance.instance.playerShopManager.BuyItem(id);
+        ShopInstance.Instance.playerShopManager.BuyItem(id);
     }
 }

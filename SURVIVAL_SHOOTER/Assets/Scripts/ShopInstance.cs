@@ -2,23 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopInstance : MonoBehaviour
+public class ShopInstance : Singleton<ShopInstance>
 {
-    public static ShopInstance instance;
-
     public event System.Action onStartGameClicked;
 
     public PlayerShopManager playerShopManager;
     public ShopGUI shopGUI;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance) Destroy(gameObject);
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+		base.Awake();
     }
 
     public void StartGame()

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
 	private static T instance;
 
@@ -10,14 +8,14 @@ public class Singleton<T> : MonoBehaviour where T : Component
 	{
 		get
 		{
-			instance = FindObjectOfType<T>();
+			//instance = FindObjectOfType<T>();
 
-			if (instance == null)
+			/*if (instance == null)
 			{
 				var obj = new GameObject();
 
 				instance = obj.AddComponent<T>();
-			}
+			}*/
 
 			return instance;
 		}
@@ -27,11 +25,19 @@ public class Singleton<T> : MonoBehaviour where T : Component
 		}
 	}
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		if (instance != null && instance != this)
+		{
+			Debug.Log("Destroying " + this.name);
 			Destroy(this);
+
+			return;
+		}
 		else
-			instance = this as T;		
+		{
+			Debug.Log("Setting " + this.name + " as instance.");
+			instance = this as T;
+		}			
 	}
 }

@@ -6,13 +6,15 @@ public class StateController : Singleton<StateController>
 {
 	public StateMachine StateMachine;
 
+	public bool DebugMode = true;
+
 	public static PlayingState playing;
 	public static PausedState paused;
     public static ShopState shop;
 
-	private void Awake()
+	protected override void Awake()
 	{
-		Debug.Log("Awake");
+		base.Awake();
 
 		StateMachine = new StateMachine();
 
@@ -23,15 +25,18 @@ public class StateController : Singleton<StateController>
 
 	private void Start()
 	{
-		Debug.Log("Start");
-
-		StateMachine.ChangeState(shop);
+		if(DebugMode)
+		{
+			StateMachine.ChangeState(playing);
+		}
+		else
+		{
+			StateMachine.ChangeState(shop);
+		}
 	}
 
 	protected void Update()
 	{
-		Debug.Log("Update");
-
 		StateMachine.RunState();		
 	}
 }
