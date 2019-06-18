@@ -19,19 +19,19 @@ public class ItemGUI : MonoBehaviour
         nameText.text = p_name;
         descriptionText.text = p_description;
 
-        costText.text = "$" + p_cost;
+        costText.text = "R$" + p_cost;
 
         image.sprite = p_image;
 
         if (p_bought)
         {
-            buttonBuyText.text = p_bought ? "Bought" : "Buy";
+            buttonBuyText.text = p_bought ? "Comprado!" : "Comprar";
 
             buttonBuy.interactable = !p_bought;
         }
         else
         {
-            buttonBuyText.text = ShopInstance.Instance.playerShopManager.Money >= p_cost ? "Buy" : "No enough money";
+            buttonBuyText.text = ShopInstance.Instance.playerShopManager.Money >= p_cost ? "Comprar" : "Sem grana";
 
             buttonBuy.interactable = ShopInstance.Instance.playerShopManager.Money >= p_cost ? true : false;
         }
@@ -46,12 +46,12 @@ public class ItemGUI : MonoBehaviour
                 if (buttonBuy.interactable && ShopInstance.Instance.playerShopManager.Money < ShopInstance.Instance.playerShopManager.PlayerItems[id].cost)
                 {
                     buttonBuy.interactable = false;
-                    buttonBuyText.text = "No enough money";
+                    buttonBuyText.text = "Sem grana";
                 }
                 else if(!buttonBuy.interactable && ShopInstance.Instance.playerShopManager.Money >= ShopInstance.Instance.playerShopManager.PlayerItems[id].cost)
                 {
                     buttonBuy.interactable = true;
-                    buttonBuyText.text = "Buy";
+                    buttonBuyText.text = "Comprar";
                 }
             }
         }
