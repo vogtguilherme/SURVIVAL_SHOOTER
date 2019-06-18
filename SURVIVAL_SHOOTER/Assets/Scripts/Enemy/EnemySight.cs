@@ -22,6 +22,8 @@ public class EnemySight : MonoBehaviour
 	[Header("Debug")]
 	[SerializeField] private bool drawDebugRay = true;
 
+    public Transform PlayerTranform { get => m_Player; }
+
 	private void Start()
 	{
 		m_Player = Player.Instance.transform;
@@ -40,6 +42,8 @@ public class EnemySight : MonoBehaviour
 		//Verifica se o jogador está dentro da distância em que o inimigo enxerga		/ Alt. Implementar função com detecção de trigger
 		if (Vector3.Distance(transform.position, m_Player.position) < viewDistance)
 		{
+            return true;
+
 			//Vetor da posicao do player para o inimigo
 			Vector3 directionToPlayer = (m_Player.position - transform.position).normalized;
 			//Angulo entre o vetor forward e o vetor para o player

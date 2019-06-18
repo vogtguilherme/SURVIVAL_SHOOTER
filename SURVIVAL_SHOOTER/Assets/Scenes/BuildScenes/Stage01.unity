@@ -872,5 +872,10 @@ PrefabInstance:
       propertyPath: pathHolder
       value: 
       objectReference: {fileID: 1801496498}
+    - target: {fileID: 1243741058103384439, guid: 254ba97833ee69b4ab41886292556682,
+        type: 3}
+      propertyPath: viewDistance
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 254ba97833ee69b4ab41886292556682, type: 3}

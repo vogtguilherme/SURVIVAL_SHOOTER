@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IDamageable
 {
+    public AnimationController animationController;
+
 	[SerializeField]
 	protected Health m_Health;
 
