@@ -2,9 +2,11 @@
 
 public class DeadState : State
 {
+	//public InterfaceManager interfaceManager { get; set; }
+
 	public override void Enter()
 	{
-		
+		UIManager.Instance.DisplayDeathText();
 	}
 
 	public override void Execute()
@@ -20,6 +22,6 @@ public class DeadState : State
 
 	public override void Exit()
 	{
-		
+		UIManager.Instance.HideDeathText();
 	}
 }
