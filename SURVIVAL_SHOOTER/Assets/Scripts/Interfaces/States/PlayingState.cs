@@ -22,6 +22,8 @@ public class PlayingState : State
 		//COMPORTAMENTO DO ESTADO
 
 		Player.Instance.m_PlayerMovement.UpdateMovement();
+
+		Player.Instance.m_PlayerShooting.ShootingBehavior();
 		
 		
 		//CONDIÇÕES PARA TROCA DE ESTADOS

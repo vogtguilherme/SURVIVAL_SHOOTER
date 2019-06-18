@@ -47,7 +47,7 @@ public class PlayerShooting : MonoBehaviour
         m_AudioSource = GetComponent<AudioSource>();		
     }
 
-    void Update()
+    public void ShootingBehavior()
     {
         timer += Time.deltaTime;
 
