@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 8296376623595080939}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b36b04bcce98d0459e11d43ef3f977b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationController: {fileID: 0}
   m_Health:
     currentHealth: 0
   playerSpeed: 8.5
