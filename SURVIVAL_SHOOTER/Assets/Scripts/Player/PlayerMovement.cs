@@ -15,12 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
     private float camRayLenght = 100f;
     private int floorMask;
-    
+
+    float x;
+    float y;
+
     [Space(0.5f)]
 	[Header("Debug")]
 	[SerializeField]private bool drawDebugRay = true;
 	[SerializeField]private float rayDistance = 10f;
-    
+
+    public Vector3 velocity { get => new Vector2(x, y); }
 
     void Awake()
 	{
@@ -29,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody> ();		
 	}
 
-	/*void FixedUpdate()
+    /*void FixedUpdate()
 	{
 		float x = Input.GetAxis ("Horizontal");
 		float y = Input.GetAxis ("Vertical");
@@ -39,10 +43,11 @@ public class PlayerMovement : MonoBehaviour
         Turning();
 	}*/
 
-	public void UpdateMovement()
+
+    public void UpdateMovement()
 	{
-		float x = Input.GetAxis("Horizontal");
-		float y = Input.GetAxis("Vertical");
+		x = Input.GetAxis("Horizontal");
+		y = Input.GetAxis("Vertical");
 
 		Move(x, y);
 

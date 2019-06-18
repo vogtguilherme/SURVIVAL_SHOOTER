@@ -23,7 +23,9 @@ public class PlayerShooting : MonoBehaviour
 
 	private float m_FireRate = 0.2f;
 	private float m_FireDistance = 25f;
-	private int m_BulletDamage = 1;	
+	private int m_BulletDamage = 1;
+
+    public float GetFireRate { get => m_FireRate; }
 
     float timer;
     Ray shootRay;
@@ -91,6 +93,8 @@ public class PlayerShooting : MonoBehaviour
 
 			return;
 		}
+
+        player.Shoot();
 
 		timer = 0f;
         //Toca o clipe de disparo.  #Fazer tocar audios aleatórios
