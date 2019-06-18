@@ -4,6 +4,8 @@ https://unity3d.com/pt/learn/tutorials/projects/survival-shooter/harming-enemies
 */
 
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(AudioSource))]
@@ -21,7 +23,7 @@ public class PlayerShooting : MonoBehaviour
 
 	private float m_FireRate = 0.2f;
 	private float m_FireDistance = 25f;
-	private int m_BulletDamage = 1;
+	private int m_BulletDamage = 1;	
 
     float timer;
     Ray shootRay;
@@ -31,6 +33,8 @@ public class PlayerShooting : MonoBehaviour
     LineRenderer gunLine;
     AudioSource m_AudioSource;
     float effectsDisplaytime = 0.15f;
+
+	bool canShoot = true;
 
     #endregion
 
@@ -48,14 +52,31 @@ public class PlayerShooting : MonoBehaviour
         timer += Time.deltaTime;
 
         //Se o jogador aperta o botão definido como Fire1, realizar o disparo
-        if (Input.GetButton("Fire1") && timer >= m_FireRate) Shoot();
+        if (Input.GetButton("Fire1") && timer >= m_FireRate && canShoot) Shoot();
         
         //Desabilitar o efeito da arma se o timer excedeu o tempo de efeito
         if (timer >= m_FireRate * effectsDisplaytime) DisableEffects();
+
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			Reload(2.33f);
+		}
     }
     #endregion
 
     #region Class Methods
+
+	void Reload(float time)
+	{
+		StartCoroutine("StartReload", time);
+	}
+
+	private IEnumerator StartReload(float time)
+	{
+		yield return new WaitForSeconds(time);
+
+		ReloadWeapon(ref Player.Instance.m_Weapon);
+	}
 
     void Shoot()
     {
@@ -64,6 +85,10 @@ public class PlayerShooting : MonoBehaviour
 		if (player.m_Weapon.CurrentAmmo <= 0)
 		{
 			Debug.Log("No ammo.");
+
+			if(player.m_Weapon.CarryingAmmo >= player.m_Weapon.MaximumAmmo)
+				Reload(2.33f);
+
 			return;
 		}
 
@@ -107,8 +132,43 @@ public class PlayerShooting : MonoBehaviour
 
 		player.m_Weapon.CurrentAmmo -= 1;
 
+		Debug.Log("Ammo: " + player.m_Weapon.CurrentAmmo + "/" + player.m_Weapon.CarryingAmmo);
+
 		player.TriggerEvent();
 
+	}
+
+	private void ReloadWeapon(ref Weapon weapon)
+	{	
+		canShoot = false;
+		//Numero de disparos realizados = Capacidade de um carregador subtraído pela quantidade de munição ainda carregada
+		int emptyShots = weapon.MaximumAmmo - weapon.CurrentAmmo;
+		Debug.Log(emptyShots);
+		
+		//Se a munição guardada é maior ou igual o número de disparos vazios
+		if(weapon.CarryingAmmo >= emptyShots)
+		{			
+			//Recarregar
+			weapon.CarryingAmmo = weapon.CarryingAmmo - emptyShots;
+			weapon.CurrentAmmo = weapon.CurrentAmmo + emptyShots;
+
+			Debug.Log("RECARREGANDO...");
+
+			//yield return new WaitForSeconds(2.33f);
+
+			canShoot = true;
+
+			Debug.Log("Recarregado");
+		}		
+		else
+		{
+			Debug.Log("SEM MUNIÇÃO...");
+
+			//yield return null;
+		}
+
+		Debug.Log("Ammo: " + weapon.CurrentAmmo + "/" + weapon.CarryingAmmo);
+		Debug.Log("Ammo: " + Player.Instance.m_Weapon.CurrentAmmo + "/" + Player.Instance.m_Weapon.CarryingAmmo);
 	}
 
     public void DisableEffects()
