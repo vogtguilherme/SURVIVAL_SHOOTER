@@ -7,7 +7,9 @@ public abstract class Entity : MonoBehaviour, IDamageable
 	[SerializeField]
 	protected Health m_Health;
 
-	public virtual void TakeHit(int damage, RaycastHit hit)
+	public abstract void TakeHit(int damage, RaycastHit hit);
+
+	public virtual void TakeHit(int damage/*, RaycastHit hit*/)
 	{
 		//Se a vida já for igual ou menor que zero
 		if (m_Health.CurrentHealth <= 0)

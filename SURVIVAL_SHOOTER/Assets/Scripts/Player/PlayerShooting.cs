@@ -87,7 +87,7 @@ public class PlayerShooting : MonoBehaviour
         if (Physics.Raycast(shootRay, out shootHit, player.m_Weapon.FireDistance, shootableMask))
         {
 			//Descobrir o que foi atingido
-			Entity n_Entity = shootHit.collider.GetComponent<Entity>();
+			Entity n_Entity = shootHit.collider.GetComponentInParent<Entity>();
 			//Se foi um objeto com um componenete Entity
 			if(n_Entity != null)
 			{

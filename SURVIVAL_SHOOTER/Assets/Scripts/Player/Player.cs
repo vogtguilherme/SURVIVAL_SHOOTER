@@ -31,7 +31,9 @@ public class Player : Entity, ICollectable
 
 	void Awake()
     {
-        if (Instance == null)
+		Debug.Log("Awake");
+
+		if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
@@ -48,9 +50,9 @@ public class Player : Entity, ICollectable
         m_PlayerMovement.MovementSpeed = playerSpeed;	
 	}
 
-	public override void TakeHit(int damage, RaycastHit hit)
+	public override void TakeHit(int damage)
 	{
-		base.TakeHit(damage, hit);
+		base.TakeHit(damage);
 
 		TriggerEvent();
 	}	
@@ -65,6 +67,7 @@ public class Player : Entity, ICollectable
 
 	protected override void Death()
 	{
+		Debug.Log("On Player Death");
 		OnPlayerDead();
 		DisableFunctions();
 	}
@@ -129,5 +132,10 @@ public class Player : Entity, ICollectable
 	{
 		if (OnVariableChanged != null)
 			OnVariableChanged();
+	}
+
+	public override void TakeHit(int damage, RaycastHit hit)
+	{
+		//throw new System.NotImplementedException();
 	}
 }

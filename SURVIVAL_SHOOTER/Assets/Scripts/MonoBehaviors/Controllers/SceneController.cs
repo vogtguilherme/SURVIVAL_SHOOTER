@@ -34,6 +34,11 @@ public class SceneController : MonoBehaviour
             m_ScreenFader.FadeIn();
     }
 
+	public int CurrentScene()
+	{
+		return SceneManager.GetActiveScene().buildIndex;
+	}
+
     public void FadeAndLoadScene(int sceneIndex)
     {
         if(!m_ScreenFader.IsFading)
@@ -62,9 +67,7 @@ public class SceneController : MonoBehaviour
 
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
-        yield return StartCoroutine(LoadSceneAndSetActive(sceneIndex));
-
-        OnSceneLoaded?.Invoke();
+        yield return StartCoroutine(LoadSceneAndSetActive(sceneIndex));        
 
         //StateController.Instance.StateMachine.ChangeState(StateController.shop);
 
@@ -88,6 +91,8 @@ public class SceneController : MonoBehaviour
         Scene newLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
 
         SceneManager.SetActiveScene(newLoadedScene);
+
+		OnSceneLoaded?.Invoke();
 
 		MainCamera = Camera.main.gameObject;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[Serializable]
 public class StateMachine
 {
 	public event Action<string> OnStateChange;
@@ -42,7 +43,7 @@ public class StateMachine
 		{
 			m_CurrentState.Execute();			
 
-			//Debug.Log("Current state: " + m_CurrentState.ToString());
+			Debug.Log("Current state: " + m_CurrentState.ToString());
 		}
 	}	
 }
