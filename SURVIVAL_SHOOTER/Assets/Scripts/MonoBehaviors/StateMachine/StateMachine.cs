@@ -15,8 +15,6 @@ public class StateMachine
 	{
 		get
 		{
-			Debug.Log("Current state: " + m_CurrentState.ToString());
-
 			return m_CurrentState;
 		}
 	}

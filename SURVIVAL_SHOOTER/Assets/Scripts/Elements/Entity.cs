@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
 		
 		//Desconta o valor de damage no valor atual
 		m_Health.CurrentHealth -= damage;
+		
 		Debug.Log("Damage");
 
 		//Se a vida restante for menor que um

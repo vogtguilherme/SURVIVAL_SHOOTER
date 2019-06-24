@@ -8,6 +8,7 @@ public class Player : Entity, ICollectable
 
 	public PlayerMovement m_PlayerMovement { get; private set; }
     public PlayerShooting m_PlayerShooting { get; private set; }
+	public PlayerWeaponManager m_PlayerWeapon {get; private set; }
 
     private bool isDead = false;
     private bool onAttack = false;
@@ -45,7 +46,8 @@ public class Player : Entity, ICollectable
             Destroy(gameObject);
 
         m_PlayerMovement = GetComponent<PlayerMovement>();
-        m_PlayerShooting = GetComponentInChildren<PlayerShooting>();		
+        m_PlayerShooting = GetComponentInChildren<PlayerShooting>();
+		m_PlayerWeapon = GetComponent<PlayerWeaponManager>();		
 
 		m_Health = new Health(5);	
 
