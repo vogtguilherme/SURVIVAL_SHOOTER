@@ -11,21 +11,22 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerShooting : MonoBehaviour
 {
-	#region ExternalAcessVariables
+    #region Weapons
 
-	public float FireRate { get { return m_FireRate; } set { m_FireRate = value; } }
-	public float FireDistance { get { return m_FireDistance; } set { m_FireDistance = value; } }
-	public int BulletDamage { get { return m_BulletDamage; } set { m_BulletDamage = value; } }
+	private Weapon shotgun = new Weapon	(2, 6, 0.95f, 7.5f);
+	private Weapon uzi = new Weapon	(1, 19, 0.15f, 12f);
+	private Weapon machineGun = new Weapon	(1, 24, 0.2f, 20f);
 
-	#endregion
+    #endregion
 
-	#region Variables
+    #region Variables    
 
-	private float m_FireRate = 0.2f;
-	private float m_FireDistance = 25f;
-	private int m_BulletDamage = 1;
+    public static Weapon CurrentWeapon = new Weapon(2, 6, 1.5f, 15f);
 
-    public float GetFireRate { get => m_FireRate; }
+	public static float CurrentWeaponFireRate
+    {
+        get => CurrentWeapon.FireRate;
+    }
 
     float timer;
     Ray shootRay;
@@ -54,10 +55,10 @@ public class PlayerShooting : MonoBehaviour
         timer += Time.deltaTime;
 
         //Se o jogador aperta o botão definido como Fire1, realizar o disparo
-        if (Input.GetButton("Fire1") && timer >= m_FireRate && canShoot) Shoot();
+        if (Input.GetButton("Fire1") && timer >= CurrentWeapon.FireRate && canShoot) Shoot();
         
         //Desabilitar o efeito da arma se o timer excedeu o tempo de efeito
-        if (timer >= m_FireRate * effectsDisplaytime) DisableEffects();
+        if (timer >= CurrentWeapon.FireRate * effectsDisplaytime) DisableEffects();
 
 		if(Input.GetKeyDown(KeyCode.R))
 		{
@@ -77,18 +78,18 @@ public class PlayerShooting : MonoBehaviour
 	{
 		yield return new WaitForSeconds(time);
 
-		ReloadWeapon(ref Player.Instance.m_Weapon);
+		ReloadWeapon(ref CurrentWeapon);
 	}
 
     void Shoot()
     {
 		Player player = Player.Instance;
 
-		if (player.m_Weapon.CurrentAmmo <= 0)
+		if (CurrentWeapon.CurrentAmmo <= 0)
 		{
 			Debug.Log("No ammo.");
 
-			if(player.m_Weapon.CarryingAmmo >= player.m_Weapon.MaximumAmmo)
+			if(CurrentWeapon.CarryingAmmo >= CurrentWeapon.MaximumAmmo)
 				Reload(2.33f);
 
 			return;
@@ -113,7 +114,7 @@ public class PlayerShooting : MonoBehaviour
         shootRay.direction = transform.forward;
 
         //Lança o raycast para gameobjects que estão no layer "Shootable"
-        if (Physics.Raycast(shootRay, out shootHit, player.m_Weapon.FireDistance, shootableMask))
+        if (Physics.Raycast(shootRay, out shootHit, CurrentWeapon.FireDistance, shootableMask))
         {
 			//Descobrir o que foi atingido
 			Entity n_Entity = shootHit.collider.GetComponentInParent<Entity>();
@@ -121,7 +122,7 @@ public class PlayerShooting : MonoBehaviour
 			if(n_Entity != null)
 			{
 				//Descontar dano do HP
-				n_Entity.TakeHit(player.m_Weapon.BulletDamage, shootHit);
+				n_Entity.TakeHit(CurrentWeapon.BulletDamage, shootHit);
 			}
 			//Posicionar o fim do Line Renderer no ponto onde o raio atingiu
 			gunLine.SetPosition(1, shootHit.point);
@@ -131,12 +132,12 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             //Atribui o segundo ponto do raio para a distância máxima do disparo
-            gunLine.SetPosition(1, shootRay.origin + (shootRay.direction * player.m_Weapon.FireDistance));
+            gunLine.SetPosition(1, shootRay.origin + (shootRay.direction * CurrentWeapon.FireDistance));
         }
 
-		player.m_Weapon.CurrentAmmo -= 1;
+		CurrentWeapon.CurrentAmmo -= 1;
 
-		Debug.Log("Ammo: " + player.m_Weapon.CurrentAmmo + "/" + player.m_Weapon.CarryingAmmo);
+		Debug.Log("Ammo: " + CurrentWeapon.CurrentAmmo + "/" + CurrentWeapon.CarryingAmmo);
 
 		player.TriggerEvent();
 
@@ -172,7 +173,7 @@ public class PlayerShooting : MonoBehaviour
 		}
 
 		Debug.Log("Ammo: " + weapon.CurrentAmmo + "/" + weapon.CarryingAmmo);
-		Debug.Log("Ammo: " + Player.Instance.m_Weapon.CurrentAmmo + "/" + Player.Instance.m_Weapon.CarryingAmmo);
+		Debug.Log("Ammo: " + CurrentWeapon.CurrentAmmo + "/" + CurrentWeapon.CarryingAmmo);
 	}
 
     public void DisableEffects()

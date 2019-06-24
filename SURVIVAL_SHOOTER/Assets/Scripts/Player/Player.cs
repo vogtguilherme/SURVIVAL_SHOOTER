@@ -12,6 +12,8 @@ public class Player : Entity, ICollectable
     private bool isDead = false;
     private bool onAttack = false;
 
+	private Weapon playerWeapon;
+
     #endregion
 
     #region Public Variables
@@ -29,9 +31,7 @@ public class Player : Entity, ICollectable
     public Health PlayerHealth
 	{
 		get { return m_Health; }		
-	}
-
-	public Weapon m_Weapon;	
+	}	
 
 	#endregion
 
@@ -47,8 +47,7 @@ public class Player : Entity, ICollectable
         m_PlayerMovement = GetComponent<PlayerMovement>();
         m_PlayerShooting = GetComponentInChildren<PlayerShooting>();		
 
-		m_Health = new Health(5);
-		m_Weapon = new Weapon(1, 12, 0.2f, 20f);
+		m_Health = new Health(5);	
 
     }
 
@@ -113,11 +112,11 @@ public class Player : Entity, ICollectable
 			Debug.Log("Recovered " + amount + " HP");
 		}
 
-		if(type == ItemType.MUNICAO)
+		/*if(type == ItemType.MUNICAO)
 		{
 			bool full;	
 
-			full = m_Weapon.IsWeaponFull();
+			full = PlayerShooting.CurrentWeapon.IsWeaponFull();
 
 			if (full)
 			{
@@ -125,19 +124,19 @@ public class Player : Entity, ICollectable
 				return;
 			}
 
-			int projectedAmmo = m_Weapon.CurrentAmmo + amount;
+			int projectedAmmo = CurrentWeapon.CurrentAmmo + amount;
 
-			if(projectedAmmo > m_Weapon.MaximumAmmo)
+			if(projectedAmmo > CurrentWeapon.MaximumAmmo)
 			{
-				m_Weapon.CurrentAmmo = m_Weapon.MaximumAmmo;
+				CurrentWeapon.CurrentAmmo = CurrentWeapon.MaximumAmmo;
 			}
 			else
 			{
-				m_Weapon.CurrentAmmo += amount;
+				CurrentWeapon.CurrentAmmo += amount;
 			}
 
 			Debug.Log("Acquired " + amount + " bullets");
-		}
+		}*/
 
 		TriggerEvent();
 		
@@ -158,7 +157,9 @@ public class Player : Entity, ICollectable
     {
         OnAttack = true;
 
-        StartCoroutine(WaitAnimationAttack(m_PlayerShooting.GetFireRate));
+		float fireRate = PlayerShooting.CurrentWeaponFireRate;
+
+        StartCoroutine(WaitAnimationAttack(fireRate));
     }
 
     float __time = 0;

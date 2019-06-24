@@ -43,7 +43,7 @@ public class ShopGUI : MonoBehaviour
 
     void Update()
     {
-        moneyText.text = "$" + ShopInstance.Instance.playerShopManager.Money;
+        moneyText.text = "R$" + ShopInstance.Instance.playerShopManager.Money;
     }
 
     public void Open()
