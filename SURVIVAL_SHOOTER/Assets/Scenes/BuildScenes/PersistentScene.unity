@@ -1508,7 +1508,7 @@ MonoBehaviour:
   FadeOnSceneLoad: 1
   UICamera: {fileID: 1684181380}
   MainCamera: {fileID: 0}
-  sceneToLoadIndex: 1
+  sceneToLoadIndex: 2
 --- !u!114 &1801727920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a662ed788374e42af5dd7b5752af45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sceneController: {fileID: 0}
+  m_sceneController: {fileID: 1801727919}
   DebugMode: 0
 --- !u!1 &1823060678
 GameObject:

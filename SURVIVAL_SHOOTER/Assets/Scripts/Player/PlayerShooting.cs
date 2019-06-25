@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(PlayerGunSound))]
 public class PlayerShooting : MonoBehaviour
 {
 	#region Weapons
 
-	public Weapon shotgun;
-	public Weapon machineGun;
-	public Weapon uzi;
+	public Weapon shotgun = new Weapon("Shotgun", 2, 6, 0.95f, 7.5f);
+	public Weapon machineGun = new Weapon ("MachineGun", 1, 24, 0.3f, 20f);
+	public Weapon uzi = new Weapon ("Uzi", 1, 19, 0.2f, 13.5f);
 
 	#endregion
 
@@ -33,7 +33,7 @@ public class PlayerShooting : MonoBehaviour
     int shootableMask;
     //ParticleSystem gunParticles;
     LineRenderer gunLine;
-    AudioSource m_AudioSource;
+    PlayerGunSound gunSound;
     float effectsDisplaytime = 0.15f;
 
 	bool canShoot = true;
@@ -60,9 +60,9 @@ public class PlayerShooting : MonoBehaviour
         shootableMask = LayerMask.GetMask("Shootable");
 
         gunLine = GetComponent<LineRenderer>();
-        m_AudioSource = GetComponent<AudioSource>();	
+        gunSound = GetComponent<PlayerGunSound>();	
 
-		currentWeapon = new Weapon(1, 29, 0.2f, 20f);
+		currentWeapon = new Weapon("Shotgun", 2, 6, 0.925f, 10f);
     }
 
     public void ShootingBehavior()
@@ -78,6 +78,21 @@ public class PlayerShooting : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.R))
 		{
 			Reload(2.33f);
+		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			currentWeapon = shotgun;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			currentWeapon = uzi;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			currentWeapon = machineGun;
 		}
     }
     #endregion
@@ -114,7 +129,7 @@ public class PlayerShooting : MonoBehaviour
 
 		timer = 0f;
         //Toca o clipe de disparo.  #Fazer tocar audios aleatórios
-        m_AudioSource.Play();
+        gunSound.PlayShotSound(currentWeapon);
 
         //Começa os efeitos de partícula, para se estavam habilitados antes.
         //gunParticles.Stop();

@@ -3,6 +3,8 @@
 [System.Serializable]
 public struct Weapon
 {
+	
+	public string Name;
 	public float FireRate { get { return m_FireRate; } set { m_FireRate = value; } }
 	public float FireDistance { get { return m_FireDistance; } set { m_FireDistance = value; } }
 	public int BulletDamage { get { return m_BulletDamage; } set { m_BulletDamage = value; } }
@@ -20,8 +22,9 @@ public struct Weapon
 	[SerializeField]
 	private int m_CurrentAmmo;
 
-	public Weapon(int bulletDamage, int maxAmmo, float fireRate, float fireDistance)
+	public Weapon(string name, int bulletDamage, int maxAmmo, float fireRate, float fireDistance)
 	{
+		Name = name;
 		m_BulletDamage = bulletDamage;
 		m_MaximumAmmo = maxAmmo;
 		m_FireRate = fireRate;

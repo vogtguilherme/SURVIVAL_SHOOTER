@@ -48,8 +48,6 @@ public class Player : Entity, ICollectable
         m_PlayerShooting = GetComponentInChildren<PlayerShooting>();		
 
 		m_Health = new Health(5);
-		m_Weapon = new Weapon(1, 12, 0.2f, 20f);
-
     }
 
     void OnEnable()

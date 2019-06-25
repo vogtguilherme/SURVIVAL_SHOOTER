@@ -496,8 +496,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222169251, guid: 6886f7af3eb8f6440a2e2a696f65a785, type: 3}
+      propertyPath: m_Volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 222169251, guid: 6886f7af3eb8f6440a2e2a696f65a785, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6886f7af3eb8f6440a2e2a696f65a785, type: 3}
+--- !u!1 &751509091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 222169248, guid: 6886f7af3eb8f6440a2e2a696f65a785,
+    type: 3}
+  m_PrefabInstance: {fileID: 751509090}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &751509092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751509091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052a88f39b609f44a985869be24e0537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotSounds:
+  - {fileID: 8300000, guid: 03dd8d6274cfa7744b65e4bb52ebee52, type: 3}
+  - {fileID: 8300000, guid: 5a087eeca5ae7c04e9df67cdf94f8bd6, type: 3}
+  - {fileID: 8300000, guid: ab79257b54ab335448e46895b95600b7, type: 3}
+  reloadSounds: []
+  machineGunSounds: []
 --- !u!1 &1368532757
 GameObject:
   m_ObjectHideFlags: 0
