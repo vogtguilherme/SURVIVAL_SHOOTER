@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   itemName: Escopeta
-  description: "\"Na cabe\xE7a n\xE3o que \xE9 pra n\xE3o estraga o vel\xF3rio\""
+  description: "\"Na cabe\xE7a n\xE3o que \xE9 pra n\xE3o estraga o vel\xF3rio\"\nCurta
+    dist\xE2ncia, dano alto."
   cost: 60
   bought: 0
   image: {fileID: 21300000, guid: c5b79b164189ebf41aeaf5129d859773, type: 3}

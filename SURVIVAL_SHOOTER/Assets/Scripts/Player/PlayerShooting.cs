@@ -79,7 +79,7 @@ public class PlayerShooting : MonoBehaviour
 		{
 			Reload(2.33f);
 		}
-
+		/*
 		if(Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			currentWeapon = shotgun;
@@ -93,7 +93,7 @@ public class PlayerShooting : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Alpha3))
 		{
 			currentWeapon = machineGun;
-		}
+		}*/
     }
     #endregion
 

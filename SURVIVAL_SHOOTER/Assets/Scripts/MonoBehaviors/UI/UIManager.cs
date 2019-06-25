@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+	public HeadsUpDisplayController hudController;
+	
 	public Text StateText;
 
 	[SerializeField]
@@ -11,12 +13,22 @@ public class UIManager : Singleton<UIManager>
 	[SerializeField]
 	private CanvasGroup deathPanel;
 
+	protected override void Awake()
+	{
+		base.Awake();
+		Debug.Log("Awake " + this.name);
+		if(hudController == null)
+		{
+			hudController = GetComponent<HeadsUpDisplayController>();
+		}
+	}
+
 	private void Start()
 	{
 		StateController.Instance.StateMachine.OnStateChange += UpdateText;
 
 		StateController.paused.OnPause += ActivateScreenTint;
-		StateController.paused.OnUnpause += DeactivateScreenTint;
+		StateController.paused.OnUnpause += DeactivateScreenTint;		
 
 		SetPanel(deathPanel, false, 0f);
 	}

@@ -14,7 +14,13 @@ public class PlayingState : State
 	public override void Enter()
 	{
 		//throw new System.NotImplementedException();
-		Player.Instance.OnPlayerDead += ChangeToDeadState;
+		Player.Instance.OnPlayerDead += ChangeToDeadState;		
+
+		UIManager.Instance.hudController.playerStatsHolder.SetActive(true);
+		
+		Player.Instance.OnVariableChanged += UIManager.Instance.hudController.SetupHUD;
+
+		UIManager.Instance.hudController.SetupHUD();
 	}
 
 	public override void Execute()
@@ -46,6 +52,8 @@ public class PlayingState : State
 	{
 		//throw new System.NotImplementedException();
 		Player.Instance.OnPlayerDead -= ChangeToDeadState;
+
+		UIManager.Instance.hudController.playerStatsHolder.SetActive(false);
 	}
 
 	private void ChangeToDeadState()

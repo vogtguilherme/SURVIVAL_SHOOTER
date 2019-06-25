@@ -54,11 +54,11 @@ public class MainMenuManager : MonoBehaviour
 
 		while(!asyncOperation.isDone)
 		{
-			m_Text.text = "Loading... " + (asyncOperation.progress * 100) + "%";			
+			m_Text.text = "Carregando... " + (asyncOperation.progress * 100) + "%";			
 
 			if(asyncOperation.progress >= 0.9f)
 			{
-				m_Text.text = "Press enter to begin";
+				m_Text.text = "Pressione enter para iniciar";
 
 				if (Input.GetKeyDown(KeyCode.Return))
 				{

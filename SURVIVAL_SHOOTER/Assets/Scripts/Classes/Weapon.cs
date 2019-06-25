@@ -31,7 +31,7 @@ public struct Weapon
 		m_FireDistance = fireDistance;
 
 		m_CurrentAmmo = m_MaximumAmmo;
-		m_CarryingAmmo = maxAmmo /** 3*/;
+		m_CarryingAmmo = maxAmmo * 3;
 	}
 
 	public bool IsWeaponFull()

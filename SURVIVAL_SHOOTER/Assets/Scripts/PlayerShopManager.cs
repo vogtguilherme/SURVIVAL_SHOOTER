@@ -45,6 +45,21 @@ public class PlayerShopManager : MonoBehaviour
         money -= playerItems[p_id].cost;
         playerItems[p_id].bought = true;
 
+        EquipWeapon(p_id);
+
         ShopInstance.Instance.shopGUI.FillShop();
+    }
+
+    public void EquipWeapon(int id)
+    {
+        switch(id)
+        {
+            case 0:
+                Player.Instance.m_PlayerShooting.CurrentWeapon = Player.Instance.m_PlayerShooting.shotgun;
+                break;
+            case 1:
+                Player.Instance.m_PlayerShooting.CurrentWeapon = Player.Instance.m_PlayerShooting.uzi;
+                break;
+        }
     }
 }
